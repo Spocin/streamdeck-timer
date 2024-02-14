@@ -10,8 +10,19 @@ $SD.onConnected(({ actionInfo, appInfo, connection, messageType, port, uuid }) =
 	console.log('Stream Deck connected!');
 });
 
+let intervalId;
+
 myAction.onKeyUp(({ action, context, device, event, payload }) => {
-	console.log('Your key code goes here!');
+	if (!intervalId) {
+		console.log('Timer started');
+		intervalId = setInterval(() => {
+			console.log(new Date());
+		}, 1000);
+	} else {
+		console.log('Timer stopped');
+		window.clearInterval(intervalId);
+		intervalId = null;
+	}
 });
 
 myAction.onDialRotate(({ action, context, device, event, payload }) => {
